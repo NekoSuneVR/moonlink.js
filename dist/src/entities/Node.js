@@ -1,7 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Node = void 0;
 const index_1 = require("../../index");
+const ws_1 = __importDefault(require("ws"));
+const node_timers_1 = require("node:timers");
 class Node {
     manager;
     uuid;
@@ -53,7 +58,7 @@ class Node {
         };
         if (this.manager.options.resume)
             headers["Session-Id"] = sessionId;
-        this.socket = new WebSocket(`ws${this.secure ? "s" : ""}://${this.address}/v4/websocket`, {
+        this.socket = new ws_1.default(`ws${this.secure ? "s" : ""}://${this.address}/v4/websocket`, {
             headers,
         });
         this.socket.addEventListener("open", this.open.bind(this), { once: true });
@@ -64,7 +69,7 @@ class Node {
         this.manager.emit("nodeCreate", this);
     }
     reconnect() {
-        this.reconnectTimeout = setTimeout(() => {
+        this.reconnectTimeout = (0, node_timers_1.setTimeout)(() => {
             this.reconnectAttempts++;
             this.connect();
         }, this.retryDelay);

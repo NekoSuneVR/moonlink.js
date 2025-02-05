@@ -8,6 +8,8 @@ import {
   decodeTrack,
   generateShortUUID,
 } from "../../index";
+import WebSocket from 'ws';
+import { setTimeout } from "node:timers";
 export class Node {
   public readonly manager: Manager;
   public readonly uuid: string;
@@ -17,7 +19,7 @@ export class Node {
   public password: string;
   public connected: boolean = false;
   public destroyed: boolean = false;
-  public reconnectTimeout?: NodeJS.Timeout;
+  public reconnectTimeout?: ReturnType<typeof setTimeout>;
   public reconnectAttempts: number = 0;
   public retryAmount: number;
   public retryDelay: number = 60000;

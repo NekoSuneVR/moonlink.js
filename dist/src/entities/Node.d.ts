@@ -1,5 +1,7 @@
 import { INodeStats, INode } from "../typings/Interfaces";
 import { Manager, Player, Rest } from "../../index";
+import WebSocket from 'ws';
+import { setTimeout } from "node:timers";
 export declare class Node {
     readonly manager: Manager;
     readonly uuid: string;
@@ -9,7 +11,7 @@ export declare class Node {
     password: string;
     connected: boolean;
     destroyed: boolean;
-    reconnectTimeout?: NodeJS.Timeout;
+    reconnectTimeout?: ReturnType<typeof setTimeout>;
     reconnectAttempts: number;
     retryAmount: number;
     retryDelay: number;
