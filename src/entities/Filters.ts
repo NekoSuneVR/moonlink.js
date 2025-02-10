@@ -237,6 +237,17 @@ export class Filters {
         return this.setFilter("lowPass", lowPass);
     }
 
+    public applyPreset(filterPresets: Record<string, any>, presetName: string): this {
+        const preset = filterPresets[presetName.toLowerCase()];
+        if (!preset) throw new Error(`Preset "${presetName}" not found.`);
+
+        Object.keys(preset).forEach(filter => {
+            this.setFilter(filter as keyof Filters['filters'], preset[filter]);
+        });
+
+        return this;
+    }
+
     public resetFilters(): this {
         Object.keys(this.filters).forEach(key => {
             this.setFilter(key as keyof Filters['filters'], undefined);
