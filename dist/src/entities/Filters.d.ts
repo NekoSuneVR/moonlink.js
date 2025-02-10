@@ -17,6 +17,7 @@ export declare class Filters {
     setDistortion(distortion: Distortion | undefined): this;
     setChannelMix(channelMix: ChannelMix | undefined): this;
     setLowPass(lowPass: LowPass | undefined): this;
+    applyPreset(filterPresets: Record<string, any>, presetName: string): this;
     resetFilters(): this;
     private updateFiltersFromRest;
 }

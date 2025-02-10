@@ -150,6 +150,15 @@ class Filters {
         }, "Moonlink.js > Filters#setLowPass - lowPass not a valid LowPass object or undefined");
         return this.setFilter("lowPass", lowPass);
     }
+    applyPreset(filterPresets, presetName) {
+        const preset = filterPresets[presetName.toLowerCase()];
+        if (!preset)
+            throw new Error(`Preset "${presetName}" not found.`);
+        Object.keys(preset).forEach(filter => {
+            this.setFilter(filter, preset[filter]);
+        });
+        return this;
+    }
     resetFilters() {
         Object.keys(this.filters).forEach(key => {
             this.setFilter(key, undefined);
